@@ -6,6 +6,7 @@ import Footer from './components/Footer'
 
 export default function Todoapp() {
   const [taskList, setTaskList] = useState([])
+  const [filterState, setFilterState] = useState('ShowAllTasks')
 
   const handleAddTask = (text) => {
     setTaskList([
@@ -32,6 +33,36 @@ export default function Todoapp() {
     setTaskList(taskList.filter((task) => task.id !== taskId))
   }
 
+  const handleRemoveAllCompletedTask = () => {
+    setTaskList(taskList.filter((task) => !task.isCompleted))
+  }
+
+  const handleShowAllTasks = () => {
+    setFilterState('ShowAllTasks')
+  }
+
+  const handleShowActiveTasks = () => {
+    setFilterState('ShowActiveTasks')
+  }
+
+  const handleShowCompletedTasks = () => {
+    setFilterState('ShowCompletedTasks')
+  }
+
+  const renderList = taskList.filter((task) => {
+    if (filterState === 'ShowActiveTasks') {
+      return !task.isCompleted
+    }
+    if (filterState === 'ShowCompletedTasks') {
+      return task.isCompleted
+    }
+    return true
+  })
+
+  const numberOfPendingTasks = taskList.filter(
+    (task) => !task.isCompleted
+  ).length
+
   return (
     <section className="todoapp">
       <header className="header">
@@ -40,11 +71,18 @@ export default function Todoapp() {
       </header>
       <section className="main">
         <TaskList
-          taskList={taskList}
-          onCompletedTaskChange={handleCompletedTaskChange}
+          renderList={renderList}
           onRemoveTask={handleRemoveTask}
+          onCompletedTaskChange={handleCompletedTaskChange}
         />
-        <Footer />
+        <Footer
+          filterState={filterState}
+          numberOfPendingTasks={numberOfPendingTasks}
+          onRemoveAllCompletedTask={handleRemoveAllCompletedTask}
+          onShowAllTasks={handleShowAllTasks}
+          onShowActiveTasks={handleShowActiveTasks}
+          onShowCompletedTasks={handleShowCompletedTasks}
+        />
       </section>
     </section>
   )

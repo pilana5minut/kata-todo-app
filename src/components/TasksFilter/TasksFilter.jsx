@@ -1,14 +1,36 @@
-export default function TasksFilter() {
+import cn from 'classnames'
+
+export default function TasksFilter({
+  filterState,
+  onShowAllTasks,
+  onShowActiveTasks,
+  onShowCompletedTasks,
+}) {
   return (
     <ul className="filters">
       <li>
-        <button className="selected">All</button>
+        <button
+          className={cn({ selected: filterState === 'ShowAllTasks' })}
+          onClick={onShowAllTasks}
+        >
+          All
+        </button>
       </li>
       <li>
-        <button>Active</button>
+        <button
+          className={cn({ selected: filterState === 'ShowActiveTasks' })}
+          onClick={onShowActiveTasks}
+        >
+          Active
+        </button>
       </li>
       <li>
-        <button>Completed</button>
+        <button
+          className={cn({ selected: filterState === 'ShowCompletedTasks' })}
+          onClick={onShowCompletedTasks}
+        >
+          Completed
+        </button>
       </li>
     </ul>
   )

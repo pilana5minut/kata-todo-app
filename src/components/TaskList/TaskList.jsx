@@ -1,13 +1,13 @@
 import Task from '../Task'
 
 export default function TaskList({
-  taskList,
+  renderList,
   onRemoveTask,
   onCompletedTaskChange,
 }) {
   return (
     <ul className="todo-list">
-      {taskList.map((task) => {
+      {renderList.map((task) => {
         return (
           <Task
             {...task}

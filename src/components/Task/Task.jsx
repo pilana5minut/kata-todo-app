@@ -13,6 +13,7 @@ export default function Task({
         <input
           className="toggle"
           type="checkbox"
+          checked={isCompleted}
           onChange={() => onCompletedTaskChange(id)}
         />
         <label>
