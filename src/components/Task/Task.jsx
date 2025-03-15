@@ -1,17 +1,29 @@
-export default function Task() {
+import cn from 'classnames'
+
+export default function Task({
+  id,
+  content,
+  isCompleted,
+  onRemoveTask,
+  onCompletedTaskChange,
+}) {
   return (
-    <li>
+    <li className={cn({ completed: isCompleted })}>
       <div className="view">
         <input
           className="toggle"
           type="checkbox"
+          onChange={() => onCompletedTaskChange(id)}
         />
         <label>
-          <span className="description">Active task</span>
+          <span className="description">{content}</span>
           <span className="created">created 5 minutes ago</span>
         </label>
         <button className="icon icon-edit"></button>
-        <button className="icon icon-destroy"></button>
+        <button
+          className="icon icon-destroy"
+          onClick={() => onRemoveTask(id)}
+        ></button>
       </div>
     </li>
   )

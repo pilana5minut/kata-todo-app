@@ -1,4 +1,4 @@
-import TasksFilter from '../TasksFilter/TasksFilter'
+import TasksFilter from '../TasksFilter'
 
 export default function Footer() {
   return (
