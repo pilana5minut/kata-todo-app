@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import { nanoid } from 'nanoid'
+import { useState } from 'react'
 import NewTaskForm from './components/NewTaskForm'
 import TaskList from './components/TaskList'
 import Footer from './components/Footer'
@@ -15,6 +15,7 @@ export default function Todoapp() {
         id: nanoid(5),
         content: text,
         isCompleted: false,
+        creationTime: new Date(),
       },
     ])
   }
