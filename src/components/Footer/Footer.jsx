@@ -17,10 +17,7 @@ export default function Footer({
         onShowActiveTasks={onShowActiveTasks}
         onShowCompletedTasks={onShowCompletedTasks}
       />
-      <button
-        className="clear-completed"
-        onClick={onRemoveAllCompletedTask}
-      >
+      <button className="clear-completed" onClick={onRemoveAllCompletedTask}>
         Clear completed
       </button>
     </footer>

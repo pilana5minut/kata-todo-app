@@ -1,5 +1,6 @@
-import { nanoid } from 'nanoid'
 import { useState } from 'react'
+import { nanoid } from 'nanoid'
+
 import NewTaskForm from './components/NewTaskForm'
 import TaskList from './components/TaskList'
 import Footer from './components/Footer'
@@ -23,9 +24,7 @@ export default function Todoapp() {
   const handleCompletedTaskChange = (taskId) => {
     setTaskList(
       taskList.map((task) => {
-        return task.id === taskId
-          ? { ...task, isCompleted: !task.isCompleted }
-          : { ...task }
+        return task.id === taskId ? { ...task, isCompleted: !task.isCompleted } : { ...task }
       })
     )
   }
@@ -60,9 +59,7 @@ export default function Todoapp() {
     return true
   })
 
-  const numberOfPendingTasks = taskList.filter(
-    (task) => !task.isCompleted
-  ).length
+  const numberOfPendingTasks = taskList.filter((task) => !task.isCompleted).length
 
   return (
     <section className="todoapp">
