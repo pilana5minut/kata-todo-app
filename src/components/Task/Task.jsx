@@ -7,8 +7,13 @@ export default function Task({ id, content, creationTime, isCompleted, onRemoveT
       <div className="view">
         <input className="toggle" type="checkbox" checked={isCompleted} onChange={() => onCompletedTaskChange(id)} />
         <label>
-          <span className="description">{content}</span>
-          <span className="created">created {formatDistanceToNow(creationTime)} ago</span>
+          <span className="title">{content}</span>
+          <span className="description">
+            <button className="icon icon-play"></button>
+            <button className="icon icon-pause"></button>
+            12:25
+          </span>
+          <span className="description">created {formatDistanceToNow(creationTime)} ago</span>
         </label>
         <button className="icon icon-edit"></button>
         <button className="icon icon-destroy" onClick={() => onRemoveTask(id)}></button>
