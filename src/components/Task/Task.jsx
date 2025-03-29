@@ -1,6 +1,8 @@
 import { formatDistanceToNow } from 'date-fns'
 import cn from 'classnames'
 
+import Timer from '../Timer'
+
 export default function Task({ id, content, creationTime, isCompleted, onRemoveTask, onCompletedTaskChange }) {
   return (
     <li className={cn({ completed: isCompleted })}>
@@ -8,11 +10,12 @@ export default function Task({ id, content, creationTime, isCompleted, onRemoveT
         <input className="toggle" type="checkbox" checked={isCompleted} onChange={() => onCompletedTaskChange(id)} />
         <label>
           <span className="title">{content}</span>
-          <span className="description">
+          <Timer></Timer>
+          {/* <span className="description">
             <button className="icon icon-play"></button>
             <button className="icon icon-pause"></button>
             12:25
-          </span>
+          </span> */}
           <span className="description">created {formatDistanceToNow(creationTime)} ago</span>
         </label>
         <button className="icon icon-edit"></button>
