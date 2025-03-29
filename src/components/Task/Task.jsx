@@ -11,11 +11,6 @@ export default function Task({ id, content, creationTime, isCompleted, onRemoveT
         <label>
           <span className="title">{content}</span>
           <Timer></Timer>
-          {/* <span className="description">
-            <button className="icon icon-play"></button>
-            <button className="icon icon-pause"></button>
-            12:25
-          </span> */}
           <span className="description">created {formatDistanceToNow(creationTime)} ago</span>
         </label>
         <button className="icon icon-edit"></button>
