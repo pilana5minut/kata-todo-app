@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from 'react'
 const formatTimer = {
   minute: 'numeric',
   second: 'numeric',
-  hour: 'numeric',
 }
 
 export default function Timer({ taskCompleted }) {
@@ -12,7 +11,7 @@ export default function Timer({ taskCompleted }) {
   const differenceTimeRef = useRef(null)
   const delayedTimeRef = useRef(null)
   const isRunningRef = useRef(false)
-  const [timerValue, setTimerValue] = useState('00:00:00')
+  const [timerValue, setTimerValue] = useState('00:00')
 
   useEffect(() => {
     document.addEventListener('visibilitychange', handleVisibilityChange)
@@ -41,6 +40,10 @@ export default function Timer({ taskCompleted }) {
   const updateTimerValue = () => {
     timerIdRef.current = setInterval(() => {
       differenceTimeRef.current = Date.now() - startTimeRef.current + delayedTimeRef.current
+
+      if (differenceTimeRef.current > 3_600_000) {
+        formatTimer.hour = 'numeric'
+      }
       setTimerValue(new Date(differenceTimeRef.current - 10_800_000).toLocaleString('ru', formatTimer))
     }, 1000)
   }
