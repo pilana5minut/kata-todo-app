@@ -14,9 +14,9 @@ export default function Timer() {
   const startTimeRef = useRef(null)
   const differenceTimeRef = useRef(null)
   const delayedTimeRef = useRef(null)
+  const isRunningRef = useRef(false)
 
   useEffect(() => {
-    console.log('🚥 Timer useEffect  🚥')
     document.addEventListener('visibilitychange', handleVisibilityChange)
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange)
@@ -26,34 +26,31 @@ export default function Timer() {
 
   const handleVisibilityChange = () => {
     if (document.hidden) {
-      console.log('🚥 document.hidden true 🚥', document.hidden)
       clearInterval(timerIdRef.current)
-      console.log('🚥 timerIdRef.current  🚥', timerIdRef.current)
     } else {
-      console.log('🚥 document.hidden false 🚥', document.hidden)
-      updateTimerValue()
+      if (isRunningRef.current) {
+        updateTimerValue()
+      }
     }
   }
 
   const updateTimerValue = () => {
-    console.log('🚥 Function updateTimerValue  🚥')
     timerIdRef.current = setInterval(() => {
-      console.log('🚥 setInterval  🚥')
       differenceTimeRef.current = Date.now() - startTimeRef.current + delayedTimeRef.current
       setTimerValue(new Date(differenceTimeRef.current - 10_800_000).toLocaleString('ru', formatTimer))
     }, 1000)
   }
 
   const handleStartTimer = () => {
+    isRunningRef.current = true
     startTimeRef.current = Date.now()
     updateTimerValue()
   }
 
   const handlePauseTimer = () => {
-    console.log('🚥 handlePauseTimer  🚥')
-    clearInterval(timerIdRef.current)
-    console.log('🚥 timerIdRef.current  🚥', timerIdRef.current)
+    isRunningRef.current = false
     delayedTimeRef.current = differenceTimeRef.current
+    clearInterval(timerIdRef.current)
   }
 
   return (
