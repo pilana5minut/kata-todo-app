@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable prettier/prettier */
 import { useEffect, useRef, useState } from 'react'
 
 const formatTimer = {
@@ -8,13 +6,13 @@ const formatTimer = {
   hour: 'numeric',
 }
 
-export default function Timer() {
-  const [timerValue, setTimerValue] = useState('00:00:00')
+export default function Timer({ taskCompleted }) {
   const timerIdRef = useRef(null)
   const startTimeRef = useRef(null)
   const differenceTimeRef = useRef(null)
   const delayedTimeRef = useRef(null)
   const isRunningRef = useRef(false)
+  const [timerValue, setTimerValue] = useState('00:00:00')
 
   useEffect(() => {
     document.addEventListener('visibilitychange', handleVisibilityChange)
@@ -23,6 +21,12 @@ export default function Timer() {
       clearInterval(timerIdRef.current)
     }
   }, [])
+
+  useEffect(() => {
+    if (taskCompleted) {
+      handlePauseTimer()
+    }
+  }, [taskCompleted])
 
   const handleVisibilityChange = () => {
     if (document.hidden) {
@@ -42,9 +46,13 @@ export default function Timer() {
   }
 
   const handleStartTimer = () => {
-    isRunningRef.current = true
-    startTimeRef.current = Date.now()
-    updateTimerValue()
+    if (!taskCompleted) {
+      if (!isRunningRef.current) {
+        isRunningRef.current = true
+        startTimeRef.current = Date.now()
+        updateTimerValue()
+      }
+    }
   }
 
   const handlePauseTimer = () => {

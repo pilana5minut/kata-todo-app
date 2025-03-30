@@ -10,7 +10,7 @@ export default function Task({ id, content, creationTime, isCompleted, onRemoveT
         <input className="toggle" type="checkbox" checked={isCompleted} onChange={() => onCompletedTaskChange(id)} />
         <label>
           <span className="title">{content}</span>
-          <Timer></Timer>
+          <Timer taskCompleted={isCompleted}></Timer>
           <span className="description">created {formatDistanceToNow(creationTime)} ago</span>
         </label>
         <button className="icon icon-edit"></button>
