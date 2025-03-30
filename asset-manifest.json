@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.c46dfabb.css",
-    "main.js": "/static/js/main.2d382016.js",
-    "index.html": "/index.html",
-    "main.c46dfabb.css.map": "/static/css/main.c46dfabb.css.map",
-    "main.2d382016.js.map": "/static/js/main.2d382016.js.map"
+    "main.css": "/kata-todo-app/static/css/main.c46dfabb.css",
+    "main.js": "/kata-todo-app/static/js/main.2d382016.js",
+    "index.html": "/kata-todo-app/index.html",
+    "main.c46dfabb.css.map": "/kata-todo-app/static/css/main.c46dfabb.css.map",
+    "main.2d382016.js.map": "/kata-todo-app/static/js/main.2d382016.js.map"
   },
   "entrypoints": [
     "static/css/main.c46dfabb.css",
