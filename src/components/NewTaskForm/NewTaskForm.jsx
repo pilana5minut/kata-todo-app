@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useContext, useState } from 'react'
 
 import { TaskContext } from '../../contexts/TaskContext'

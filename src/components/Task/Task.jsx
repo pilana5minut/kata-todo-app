@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { formatDistanceToNow } from 'date-fns'
 import cn from 'classnames'
 
@@ -16,7 +15,7 @@ export default function Task({ task, onRemoveTask, onCompletedTaskChange }) {
         />
         <label>
           <span className="title">{task.content}</span>
-          <Timer taskCompleted={task.isCompleted}></Timer>
+          <Timer task={task}></Timer>
           <span className="description">created {formatDistanceToNow(task.creationTime)} ago</span>
         </label>
         <button className="icon icon-edit"></button>

@@ -5,7 +5,7 @@ const formatTimer = {
   second: 'numeric',
 }
 
-export default function Timer({ taskCompleted }) {
+export default function Timer({ task }) {
   const timerIdRef = useRef(null)
   const startTimeRef = useRef(null)
   const differenceTimeRef = useRef(null)
@@ -22,10 +22,10 @@ export default function Timer({ taskCompleted }) {
   }, [])
 
   useEffect(() => {
-    if (taskCompleted) {
+    if (task.isCompleted) {
       handlePauseTimer()
     }
-  }, [taskCompleted])
+  }, [task.isCompleted])
 
   const handleVisibilityChange = () => {
     if (document.hidden) {
@@ -45,11 +45,11 @@ export default function Timer({ taskCompleted }) {
         formatTimer.hour = 'numeric'
       }
       setTimerValue(new Date(differenceTimeRef.current - 10_800_000).toLocaleString('ru', formatTimer))
-    }, 1000)
+    }, 100)
   }
 
   const handleStartTimer = () => {
-    if (!taskCompleted) {
+    if (!task.isCompleted) {
       if (!isRunningRef.current) {
         isRunningRef.current = true
         startTimeRef.current = Date.now()
