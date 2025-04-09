@@ -67,12 +67,13 @@ export default function Todoapp() {
     <TaskContext.Provider
       value={{
         renderList,
+        handleAddTask,
       }}
     >
       <section className="todoapp">
         <header className="header">
           <h1>todos</h1>
-          <NewTaskForm onAddTask={handleAddTask} />
+          <NewTaskForm />
         </header>
         <section className="main">
           <TaskList
