@@ -4,8 +4,8 @@ import { useContext } from 'react'
 import { TaskContext } from '../../contexts/TaskContext'
 import Task from '../Task'
 
-export default function TaskList({ onRemoveTask, onCompletedTaskChange }) {
-  const { renderList } = useContext(TaskContext)
+export default function TaskList() {
+  const { renderList, handleRemoveTask, handleCompletedTaskChange } = useContext(TaskContext)
 
   return (
     <ul className="todo-list">
@@ -14,8 +14,8 @@ export default function TaskList({ onRemoveTask, onCompletedTaskChange }) {
           <Task
             key={task.id}
             task={task}
-            onRemoveTask={onRemoveTask}
-            onCompletedTaskChange={onCompletedTaskChange}
+            onRemoveTask={handleRemoveTask}
+            onCompletedTaskChange={handleCompletedTaskChange}
           ></Task>
         )
       })}

@@ -68,6 +68,8 @@ export default function Todoapp() {
       value={{
         renderList,
         handleAddTask,
+        handleCompletedTaskChange,
+        handleRemoveTask,
       }}
     >
       <section className="todoapp">
@@ -76,11 +78,7 @@ export default function Todoapp() {
           <NewTaskForm />
         </header>
         <section className="main">
-          <TaskList
-            renderList={renderList}
-            onRemoveTask={handleRemoveTask}
-            onCompletedTaskChange={handleCompletedTaskChange}
-          />
+          <TaskList />
           <Footer
             filterState={filterState}
             numberOfPendingTasks={numberOfPendingTasks}
