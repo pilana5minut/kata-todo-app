@@ -1,23 +1,16 @@
+/* eslint-disable no-unused-vars */
+import { useContext } from 'react'
+
+import { TaskContext } from '../../contexts/TaskContext'
 import TasksFilter from '../TasksFilter'
 
-export default function Footer({
-  filterState,
-  numberOfPendingTasks,
-  onShowAllTasks,
-  onShowActiveTasks,
-  onShowCompletedTasks,
-  onRemoveAllCompletedTask,
-}) {
+export default function Footer() {
+  const { numberOfPendingTasks, handleRemoveAllCompletedTask } = useContext(TaskContext)
   return (
     <footer className="footer">
       <span className="todo-count">{numberOfPendingTasks} items left</span>
-      <TasksFilter
-        filterState={filterState}
-        onShowAllTasks={onShowAllTasks}
-        onShowActiveTasks={onShowActiveTasks}
-        onShowCompletedTasks={onShowCompletedTasks}
-      />
-      <button className="clear-completed" onClick={onRemoveAllCompletedTask}>
+      <TasksFilter />
+      <button className="clear-completed" onClick={handleRemoveAllCompletedTask}>
         Clear completed
       </button>
     </footer>

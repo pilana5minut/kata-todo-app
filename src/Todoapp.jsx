@@ -67,9 +67,15 @@ export default function Todoapp() {
     <TaskContext.Provider
       value={{
         renderList,
+        filterState,
+        numberOfPendingTasks,
         handleAddTask,
         handleCompletedTaskChange,
         handleRemoveTask,
+        handleRemoveAllCompletedTask,
+        handleShowAllTasks,
+        handleShowActiveTasks,
+        handleShowCompletedTasks,
       }}
     >
       <section className="todoapp">
@@ -79,14 +85,7 @@ export default function Todoapp() {
         </header>
         <section className="main">
           <TaskList />
-          <Footer
-            filterState={filterState}
-            numberOfPendingTasks={numberOfPendingTasks}
-            onRemoveAllCompletedTask={handleRemoveAllCompletedTask}
-            onShowAllTasks={handleShowAllTasks}
-            onShowActiveTasks={handleShowActiveTasks}
-            onShowCompletedTasks={handleShowCompletedTasks}
-          />
+          <Footer />
         </section>
       </section>
     </TaskContext.Provider>
