@@ -1,11 +1,15 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
-export default function NewTaskForm({ onAddTask }) {
+import { TaskContext } from '../../contexts/TaskContext'
+
+export default function NewTaskForm() {
+  const { handleAddTask } = useContext(TaskContext)
+
   const [inputValue, setInputValue] = useState('')
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    onAddTask(inputValue)
+    handleAddTask(inputValue)
     setInputValue('')
   }
 
