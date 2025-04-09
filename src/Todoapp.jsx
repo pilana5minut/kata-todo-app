@@ -8,7 +8,7 @@ import TaskList from './components/TaskList'
 import Footer from './components/Footer'
 
 export default function Todoapp() {
-  const [taskList, setTaskList] = useState([])
+  const [taskList, setTaskList] = useState(initialList)
   const [filterState, setFilterState] = useState('ShowAllTasks')
 
   const handleAddTask = (text) => {
@@ -64,7 +64,11 @@ export default function Todoapp() {
   const numberOfPendingTasks = taskList.filter((task) => !task.isCompleted).length
 
   return (
-    <TaskContext.Provider value={null}>
+    <TaskContext.Provider
+      value={{
+        renderList,
+      }}
+    >
       <section className="todoapp">
         <header className="header">
           <h1>todos</h1>
@@ -89,3 +93,12 @@ export default function Todoapp() {
     </TaskContext.Provider>
   )
 }
+
+const initialList = [
+  {
+    id: nanoid(5),
+    content: 'text',
+    isCompleted: false,
+    creationTime: new Date(),
+  },
+]
