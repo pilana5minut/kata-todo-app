@@ -12,8 +12,8 @@ export default function TaskList({ onRemoveTask, onCompletedTaskChange }) {
       {renderList.map((task) => {
         return (
           <Task
-            {...task}
             key={task.id}
+            task={task}
             onRemoveTask={onRemoveTask}
             onCompletedTaskChange={onCompletedTaskChange}
           ></Task>
