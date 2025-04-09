@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react'
 import { nanoid } from 'nanoid'
 
+import { TaskContext } from './contexts/TaskContext'
 import NewTaskForm from './components/NewTaskForm'
 import TaskList from './components/TaskList'
 import Footer from './components/Footer'
@@ -62,26 +64,28 @@ export default function Todoapp() {
   const numberOfPendingTasks = taskList.filter((task) => !task.isCompleted).length
 
   return (
-    <section className="todoapp">
-      <header className="header">
-        <h1>todos</h1>
-        <NewTaskForm onAddTask={handleAddTask} />
-      </header>
-      <section className="main">
-        <TaskList
-          renderList={renderList}
-          onRemoveTask={handleRemoveTask}
-          onCompletedTaskChange={handleCompletedTaskChange}
-        />
-        <Footer
-          filterState={filterState}
-          numberOfPendingTasks={numberOfPendingTasks}
-          onRemoveAllCompletedTask={handleRemoveAllCompletedTask}
-          onShowAllTasks={handleShowAllTasks}
-          onShowActiveTasks={handleShowActiveTasks}
-          onShowCompletedTasks={handleShowCompletedTasks}
-        />
+    <TaskContext.Provider value={null}>
+      <section className="todoapp">
+        <header className="header">
+          <h1>todos</h1>
+          <NewTaskForm onAddTask={handleAddTask} />
+        </header>
+        <section className="main">
+          <TaskList
+            renderList={renderList}
+            onRemoveTask={handleRemoveTask}
+            onCompletedTaskChange={handleCompletedTaskChange}
+          />
+          <Footer
+            filterState={filterState}
+            numberOfPendingTasks={numberOfPendingTasks}
+            onRemoveAllCompletedTask={handleRemoveAllCompletedTask}
+            onShowAllTasks={handleShowAllTasks}
+            onShowActiveTasks={handleShowActiveTasks}
+            onShowCompletedTasks={handleShowCompletedTasks}
+          />
+        </section>
       </section>
-    </section>
+    </TaskContext.Provider>
   )
 }
