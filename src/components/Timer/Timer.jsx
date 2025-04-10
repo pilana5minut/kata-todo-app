@@ -1,4 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
+/* eslint-disable no-unused-vars */
+import { useContext, useEffect, useRef, useState } from 'react'
+
+import { TaskContext } from '../../contexts/TaskContext'
 
 const formatTimer = {
   minute: 'numeric',
@@ -6,6 +9,8 @@ const formatTimer = {
 }
 
 export default function Timer({ task }) {
+  const { handleSetTimerStartTime } = useContext(TaskContext)
+
   const timerIdRef = useRef(null)
   const startTimeRef = useRef(null)
   const differenceTimeRef = useRef(null)
@@ -51,6 +56,7 @@ export default function Timer({ task }) {
   const handleStartTimer = () => {
     if (!task.isCompleted) {
       if (!isRunningRef.current) {
+        handleSetTimerStartTime(task.id, Date.now())
         isRunningRef.current = true
         startTimeRef.current = Date.now()
         updateTimerValue()
