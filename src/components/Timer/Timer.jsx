@@ -9,7 +9,7 @@ const formatTimer = {
 }
 
 export default function Timer({ task }) {
-  const { handleSetTimerStartTime, handleSetTimerAccumulatedTime } = useContext(TaskContext)
+  const { handleTimerState, handleSetTimerStartTime, handleSetTimerAccumulatedTime } = useContext(TaskContext)
 
   const timerIdRef = useRef(null)
   const startTimeRef = useRef(null)
@@ -56,6 +56,7 @@ export default function Timer({ task }) {
   const handleStartTimer = () => {
     if (!task.isCompleted) {
       if (!isRunningRef.current) {
+        handleTimerState(task.id, true)
         handleSetTimerStartTime(task.id, Date.now())
         isRunningRef.current = true
         startTimeRef.current = Date.now()
@@ -67,6 +68,7 @@ export default function Timer({ task }) {
   const handlePauseTimer = () => {
     isRunningRef.current = false
     delayedTimeRef.current = differenceTimeRef.current
+    handleTimerState(task.id, false)
     handleSetTimerAccumulatedTime(task.id, differenceTimeRef.current)
     clearInterval(timerIdRef.current)
   }

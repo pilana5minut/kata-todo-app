@@ -13,6 +13,7 @@ const initialList = [
     content: 'text',
     isCompleted: false,
     creationTime: new Date(),
+    timerIsRunning: false,
     timerStartTime: 0,
     timerAccumulatedTime: 0,
   },
@@ -30,10 +31,19 @@ export default function Todoapp() {
         content: text,
         isCompleted: false,
         creationTime: new Date(),
+        timerIsRunning: false,
         timerStartTime: 0,
         timerAccumulatedTime: 0,
       },
     ])
+  }
+
+  const handleTimerState = (taskId, state) => {
+    setTaskList((prevTaskList) => {
+      return prevTaskList.map((task) => {
+        return task.id === taskId ? { ...task, timerIsRunning: state } : { ...task }
+      })
+    })
   }
 
   const handleSetTimerStartTime = (taskId, timestamp) => {
@@ -105,6 +115,7 @@ export default function Todoapp() {
         handleShowAllTasks,
         handleShowActiveTasks,
         handleShowCompletedTasks,
+        handleTimerState,
         handleSetTimerStartTime,
         handleSetTimerAccumulatedTime,
       }}
