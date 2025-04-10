@@ -18,8 +18,35 @@ export default function Todoapp() {
         content: text,
         isCompleted: false,
         creationTime: new Date(),
+        timerIsRunning: false,
+        timerStartTime: 0,
+        timerAccumulatedTime: 0,
       },
     ])
+  }
+
+  const handleTimerState = (taskId, state) => {
+    setTaskList((prevTaskList) => {
+      return prevTaskList.map((task) => {
+        return task.id === taskId ? { ...task, timerIsRunning: state } : { ...task }
+      })
+    })
+  }
+
+  const handleSetTimerStartTime = (taskId, timestamp) => {
+    setTaskList((prevTaskList) => {
+      return prevTaskList.map((task) => {
+        return task.id === taskId ? { ...task, timerStartTime: timestamp } : { ...task }
+      })
+    })
+  }
+
+  const handleSetTimerAccumulatedTime = (taskId, timestamp) => {
+    setTaskList((prevTaskList) => {
+      return prevTaskList.map((task) => {
+        return task.id === taskId ? { ...task, timerAccumulatedTime: timestamp } : { ...task }
+      })
+    })
   }
 
   const handleCompletedTaskChange = (taskId) => {
@@ -75,6 +102,9 @@ export default function Todoapp() {
         handleShowAllTasks,
         handleShowActiveTasks,
         handleShowCompletedTasks,
+        handleTimerState,
+        handleSetTimerStartTime,
+        handleSetTimerAccumulatedTime,
       }}
     >
       <section className="todoapp">
@@ -97,5 +127,8 @@ const initialList = [
     content: 'text',
     isCompleted: false,
     creationTime: new Date(),
+    timerIsRunning: false,
+    timerStartTime: 0,
+    timerAccumulatedTime: 0,
   },
 ]
