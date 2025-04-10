@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useContext, useEffect, useRef, useState } from 'react'
 
 import { TaskContext } from '../../contexts/TaskContext'
@@ -9,22 +8,41 @@ const formatTimer = {
 }
 
 export default function Timer({ task }) {
+  const timerIdRef = useRef(null)
+  const startTimeRef = useRef(task.timerStartTime)
+  const differenceTimeRef = useRef(task.timerAccumulatedTime)
+  const [timerValue, setTimerValue] = useState('00:00')
   const { handleTimerState, handleSetTimerStartTime, handleSetTimerAccumulatedTime } = useContext(TaskContext)
 
-  const timerIdRef = useRef(null)
-  const startTimeRef = useRef(null)
-  const differenceTimeRef = useRef(null)
-  const delayedTimeRef = useRef(null)
-  const isRunningRef = useRef(false)
-  const [timerValue, setTimerValue] = useState('00:00')
+  useEffect(() => {
+    startTimeRef.current = task.timerStartTime
+    differenceTimeRef.current = task.timerAccumulatedTime
+
+    if (task.timerStartTime > 0) {
+      setTimerValue(new Date(differenceTimeRef.current - 10_800_000).toLocaleString('ru', formatTimer))
+    }
+
+    if (task.timerIsRunning && task.timerStartTime > 0) {
+      updateTimerValue()
+    }
+
+    return () => {
+      clearInterval(timerIdRef.current)
+    }
+  }, [task.timerStartTime, task.timerIsRunning, task.timerAccumulatedTime])
+
+  /////////////////////////////////////////////////////////////////////////////
 
   useEffect(() => {
     document.addEventListener('visibilitychange', handleVisibilityChange)
+
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange)
       clearInterval(timerIdRef.current)
     }
-  }, [])
+  }, [task.timerStartTime, task.timerIsRunning])
+
+  /////////////////////////////////////////////////////////////////////////////
 
   useEffect(() => {
     if (task.isCompleted) {
@@ -32,11 +50,13 @@ export default function Timer({ task }) {
     }
   }, [task.isCompleted])
 
+  /////////////////////////////////////////////////////////////////////////////
+
   const handleVisibilityChange = () => {
     if (document.hidden) {
       clearInterval(timerIdRef.current)
     } else {
-      if (isRunningRef.current) {
+      if (task.timerIsRunning && task.timerStartTime > 0) {
         updateTimerValue()
       }
     }
@@ -44,7 +64,7 @@ export default function Timer({ task }) {
 
   const updateTimerValue = () => {
     timerIdRef.current = setInterval(() => {
-      differenceTimeRef.current = Date.now() - startTimeRef.current + delayedTimeRef.current
+      differenceTimeRef.current = Date.now() - startTimeRef.current + task.timerAccumulatedTime
 
       if (differenceTimeRef.current > 3_600_000) {
         formatTimer.hour = 'numeric'
@@ -55,19 +75,16 @@ export default function Timer({ task }) {
 
   const handleStartTimer = () => {
     if (!task.isCompleted) {
-      if (!isRunningRef.current) {
+      if (!task.timerIsRunning) {
+        startTimeRef.current = Date.now()
         handleTimerState(task.id, true)
         handleSetTimerStartTime(task.id, Date.now())
-        isRunningRef.current = true
-        startTimeRef.current = Date.now()
         updateTimerValue()
       }
     }
   }
 
   const handlePauseTimer = () => {
-    isRunningRef.current = false
-    delayedTimeRef.current = differenceTimeRef.current
     handleTimerState(task.id, false)
     handleSetTimerAccumulatedTime(task.id, differenceTimeRef.current)
     clearInterval(timerIdRef.current)

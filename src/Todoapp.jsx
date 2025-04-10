@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useState } from 'react'
 import { nanoid } from 'nanoid'
 
@@ -6,18 +5,6 @@ import { TaskContext } from './contexts/TaskContext'
 import NewTaskForm from './components/NewTaskForm'
 import TaskList from './components/TaskList'
 import Footer from './components/Footer'
-
-const initialList = [
-  {
-    id: nanoid(5),
-    content: 'text',
-    isCompleted: false,
-    creationTime: new Date(),
-    timerIsRunning: false,
-    timerStartTime: 0,
-    timerAccumulatedTime: 0,
-  },
-]
 
 export default function Todoapp() {
   const [taskList, setTaskList] = useState(initialList)
@@ -133,3 +120,15 @@ export default function Todoapp() {
     </TaskContext.Provider>
   )
 }
+
+const initialList = [
+  {
+    id: nanoid(5),
+    content: 'text',
+    isCompleted: false,
+    creationTime: new Date(),
+    timerIsRunning: false,
+    timerStartTime: 0,
+    timerAccumulatedTime: 0,
+  },
+]
